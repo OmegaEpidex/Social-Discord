@@ -1,0 +1,63 @@
+import os
+import openai
+from discord.ext import commands
+from flask import Flask, render_template
+import threading
+
+openai.api_key = os.getenv('OPENAI_API_KEY')
+openai.organization = os.getenv('My_Organization')
+
+bot = commands.Bot(command_prefix=commands.when_mentioned_or('? '))
+
+async def fetch_gpt_response(prompt_text):
+    try:
+        response = openai.Completion.create(
+            engine="gpt-3.5-turbo",
+            prompt=prompt_text,
+            role="assistant",
+            temperature=0.7,
+            max_tokens=100
+        )
+        return response.choices[0].text.strip()
+    except Exception as e:
+        print(f"Error fetching GPT response: {e}")
+        return "I'm sorry, I couldn't find an answer to that."
+
+@bot.command(name='ai', help='Ask AI a question')
+async def ai_command(ctx, *, prompt: str):
+    bot_response = await fetch_gpt_response(prompt)
+    await ctx.send(f"{ctx.author.mention}, {bot_response}")
+
+@bot.command(name='secret')
+@commands.has_role('Admin')
+async def secret(ctx):
+    await ctx.send('This is a secret command only for Admins!')
+
+@bot.command(name='delete')
+@commands.has_permissions(manage_messages=True)
+async def delete(ctx, num: int):
+    await ctx.channel.purge(limit=num+1)
+    await ctx.send(f'{num} messages deleted.', delete_after=5)
+
+@bot.event
+async def on_command_error(ctx, error):
+    if isinstance(error, commands.errors.CheckFailure):
+        await ctx.send('You do not have the correct role for this command.')
+    elif isinstance(error, commands.errors.MissingPermissions):
+        await ctx.send("You don't have the necessary permissions to use this command.")
+    else:
+        raise error 
+
+@bot.event
+async def on_ready():
+    print(f"Logged in as {bot.user.name}")
+
+def run_discord_bot():
+    bot.run(os.getenv('discord-token'))
+run(backend/app.js)
+if __name__ == '__main__':
+    flask_thread = threading.Thread(target=run_flask_app)
+    discord_thread = threading.Thread(target=run_discord_bot)
+
+    flask_thread.start()
+    discord_thread.start()
