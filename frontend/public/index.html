@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Social Dash</title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header class="site-header">
+    <h1>Social Discord</h1>
+    <nav class="main-nav">
+      <ul>
+        <li><a href="#profile">Profile</a></li>
+        <li><a href="#feed">Social</a></li>
+        <li><a href="#message">Messages</a></li>
+        <li><a href="#comment">Comments</a></li>
+        <li><a href="#echo">Echos</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <section id="profile">
+    <!-- React component will render here -->
+    <div id="profile-container"></div>
+  </section>
+  <section id="feed">
+    <!-- React component will render here -->
+    <div id="feed-root"></div>
+  </section>
+  <section id="message">
+    <!-- React component will render here -->
+    <div id="message-root"></div>
+    <iframe src="/api/message" width="400" height="500" class="chat-iframe"></iframe>
+  </section>
+  <section id="comment">
+    <!-- React component will render here -->
+    <div id="comment-root"></div>
+    <iframe src="/api/comment" width="400" height="500" class="chat-iframe"></iframe>
+  </section>
+  <section id="echo">
+    <!-- React component will render here -->
+    <div id="echo-root"></div>
+  </section>
+
+  <footer class="site-footer">
+    <!-- Content for the footer goes here {static javascript} -->
+  </footer>
+
+  <!-- React script -->
+  <script src="/bundle.js"></script>
+  <script>
+    // Render React component into the feed-root div
+    ReactDOM.render(React.createElement(Feed), document.getElementById('feed-root'));
+  </script>
+</body>
+</html>

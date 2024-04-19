@@ -6,3 +6,11 @@ channel = "stable-22_11"
 
 [deployment]
 run = ["sh", "-c", "run"]
+
+[[ports]]
+internalPort = 5050
+externalPort = 3000
+
+[[ports]]
+internalPort = 8080
+externalPort = 5000
