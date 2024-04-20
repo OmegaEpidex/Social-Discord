@@ -1,7 +1,7 @@
 const { create } = require('@replit/database');
 const db = create();
 
-const connectDB = async () => {
+  const connectDB = async (REPLIT_DB_URL) => {
   try {
     console.log('Connecting to database...');
     await db.get('');

@@ -1,7 +1,7 @@
 {
   "name": "frontend",
   "version": "1.0.0",
-  "description": "Frontend for the Social Media Site",
+  "description": "Social-Discord Frontend",
   "homepage": "/",
   "main": "App.js",
   "scripts": {
