@@ -11,7 +11,7 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, 'frontend', 'public'));
 }
 app.listen(3000, () => {
-function runExpressApp() {
+function ExpressApp() {
     const PORT = process.env.PORT || 8080;
     app.listen(PORT, () => {
         console.log(`Server is running on port ${PORT}`);
@@ -21,7 +21,7 @@ function runExpressApp() {
 
 
 if (require.main === module) {
-    runExpressApp();
+    ExpressApp();
 }
 
 

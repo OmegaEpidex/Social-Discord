@@ -8,9 +8,9 @@ channel = "stable-22_11"
 run = ["sh", "-c", "run"]
 
 [[ports]]
-internalPort = 5050
+localPort = 5050
 externalPort = 3000
 
 [[ports]]
-internalPort = 8080
+localPort = 8080
 externalPort = 5000

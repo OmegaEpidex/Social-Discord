@@ -1,32 +1,29 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios'; 
-const port = process.env.PORT || 3000
-app.listen(port, () => {
-  res.render('..public/index.html');
-  console.log(`Server is running on port ${port}`);
-})
+import axios from 'axios';
+
+const port = process.env.PORT || 3000;
+
 const bodyParser = require('body-parser');
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static('public'));
+
 function App() {
-const [message, setMessage] = useState('');
+  const [message, setMessage] = useState('');
+  const [posts, setPosts] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-    useEffect(() => {
-      fetch('/api/homepage')
-        .then(response => response.json())
-        .then(data => setMessage(data.message))
-        .catch(error => console.error('Error fetching homepage content:', error));
-    }, []);
+  useEffect(() => {
+    fetch('/api/homepage')
+      .then(response => response.json())
+      .then(data => setMessage(data.message))
+      .catch(error => console.error('Error fetching homepage content:', error));
 
-    return (
-      <div className="App">
-        <h1>{message}</h1>
-        {/* Add your other React components and logic here */}
-      </div>
-    );
-  }
-fetchPosts();
+    // Fetch posts here
+    fetch('/api/posts')
+      .then(response => response.json())
+      .then(data => {
+        setPosts(data);
+        setLoading(false);
+      })
+      .catch(error => console.error('Error fetching posts:', error));
   }, []);
 
   return (
